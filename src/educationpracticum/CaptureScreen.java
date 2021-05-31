@@ -61,28 +61,6 @@ public class CaptureScreen {
         }
     }
 
-//    static File createDir(String nameD) {
-//        // создаем или очищаем директорию(не очищает)
-//        File f = null;
-//        String error = "";
-//
-//        try {
-//            f = new File(nameD);
-//            if (!f.mkdirs()) { // не могу создать?
-//                if (f.isDirectory()) {
-//                    error = " Dirictory is exist ";
-//                }
-//                if (f.isFile()) {
-//                    error = " this is file ";
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.println("directory" + nameD + " not creat." + error);
-//        }
-//        return f;
-//    }
-
     // --- (затирание файлов в папке)---
     public File clearDir(String dir) {
         // создаем или очищаем директорию(не очищает)
