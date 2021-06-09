@@ -9,6 +9,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,7 +48,32 @@ public class Main {
         // создание класса рефлексией(Конструктор по умолчанию)
         MyClassWithConstructor createrClassWithoutDefaultConstructorReflection = createrClassWithoutDefaultConstructor();
         System.out.println(createrClassWithoutDefaultConstructorReflection);//output created object reflection.MyClass@60e53b93
-
+        
+        // Создание разных объектов из Singltone
+        System.out.println("Two singlton");
+        try {
+            Class clazz = Class.forName(Singleton_learn.class.getName());
+            Constructor declaredConstructor = clazz.getDeclaredConstructor();
+            declaredConstructor.setAccessible(true);
+            Singleton_learn сlassSingelton1 = (Singleton_learn) declaredConstructor.newInstance();
+            Singleton_learn сlassSingelton2 = (Singleton_learn) declaredConstructor.newInstance();
+            System.out.println(сlassSingelton1);
+            System.out.println(сlassSingelton2);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // --- доступ до приватного метода ---
