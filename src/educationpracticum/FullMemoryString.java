@@ -6,6 +6,9 @@
 package educationpracticum;
 
 import java.io.IOException;
+import java.lang.ref.PhantomReference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -18,23 +21,20 @@ import static jdk.nashorn.internal.ir.debug.ObjectSizeCalculator.getObjectSize;
  * @author nazarov
  */
 // пробуем заполнить оперативную память(вычисляем сколько занимает это место в памяти)
-public class EducationPracticum {
-
-    //String str = "";
-    //int in = 12876;
-    //char c = 'a';
+public class FullMemoryString {
     int startR = 1; // диапазоны рандома
     int endR = 1000;
 
     public static void main(String[] args) throws IOException {
 
-        EducationPracticum mainStart = new EducationPracticum();
+        FullMemoryString mainStart = new FullMemoryString();
         //BackgroundThread controlThread = mainStart.runProcessTime(); // Запуск процееса 
         //BackgroundThread controlThreadStringBuilder = mainStart.runProcessTimeStringBuffer(); // Запуск процееса 
         //BackgroundThread viwerlThread = mainStart.sumSizeProcess(controlThread); // Запуск процееса 
         mainStart.fillMemory();
-        System.out.println("Out off method! ");
+        System.out.println("End fillMemory.");
         System.in.read(); // котрольно смотрим после выхода
+        
     }
 
     
@@ -53,16 +53,28 @@ public class EducationPracticum {
     
     // --- заполнение памяти вне потока ---
     void fillMemory() {
-        char ABC[] = new char[26];
-        for (int i = 0; i < 26; i++) {
-            ABC[i] = (char) ('a' + i);
-        }
-        String tmpStr = new String();
+        // тупое заполнение
+//        char ABC[] = new char[26];
+//        for (int i = 0; i < ABC.length; i++) {
+//            ABC[i] = (char) ('a' + i);
+//        }
+        // Алфавит Английский
+        char ABC[] = { 
+            'a', 'b','c','d','e','f','g',
+            'h','i','j','k','l','m','n',
+            'o','p','q','r','s','t','u',
+            'v','w','x','y','z'
+        };
+        
         int sum = 0;
+        ArrayList<String> listStr = new ArrayList<>();
+
         try {
             char[] buffArray;
+            
             for (;;) {
-
+                //StringBuilder tmpStr = new StringBuilder();
+                String tmpStr = new String();
                 int lenStr = rnd(startR, endR); // длина рандомной строки
                 buffArray = new char[lenStr];
                 // StringBuffer sb = new StringBuffer();
@@ -71,38 +83,65 @@ public class EducationPracticum {
                     buffArray[j] = ch;
                     //tmpStr.append(ch);
                 }
-            //tmpStr = String.valueOf(buffArray); //  и так жрет память
+                tmpStr = String.valueOf(buffArray); //  и так жрет память(что я сделал что память больше не жрет?)
                 //tmpStr = String.copyValueOf(buffArray); //  и так жрет память это рекомендуют
                 //tmpStr = Arrays.toString(buffArray).intern(); //  и так жрет память и intern не помогает
                 //tmpStr = sb.toString();
                 //tmpStr = sb;
                 //tmpStr.setLength(0); // так очистить StringBuffer
-                System.out.println("Size string " + getObjectSize(tmpStr) + " byte");
+                
+//                System.out.print("Size buffArray " + getObjectSize(buffArray) + " byte" + " | STR --> " ); // Так массив смотрим
+//                for (int i = 0; i < buffArray.length; i++) {
+//                    System.out.print(buffArray[i]);    
+//                }
+                
+                //System.out.print("Size String " + getObjectSize(tmpStr) + " byte" + " | STR --> " ); // Так строки смотрим
+                listStr.add(tmpStr);
+                //System.out.print(tmpStr);    
+                //System.out.println();
+                
                 ++sum;
             // для остановки и тестов сколько в диспетчеры жрет
 
                 
                 if (sum == 100) {
-                    System.in.read();
+                    System.out.println("cycle  100 out!");
+                    System.out.print("Size ArrayString " + getObjectSize(listStr) + " byte"); // Так массив смотрим
+                    //listStr.clear();
+                    //System.in.read();
                 }
                 if (sum == 1000) {
-                    System.in.read();
+                    System.out.println("cycle  1000 out! ");
+                    System.out.print("Size ArrayString " + getObjectSize(listStr) + " byte"); // Так массив смотрим
+                    //listStr.clear();
+                   // System.in.read();
                 }
-                if (sum == 5000) {
-                    System.in.read();
+                if (sum == 10000) {
+                    System.out.println("cycle  10000! ");
+                    System.out.print("Size ArrayString " + getObjectSize(listStr) + " byte"); // Так массив смотрим
+                    //listStr.clear();
+                    //System.in.read();
                 }
-                if (sum == 20000) {
+                if (sum == 100000) {
+                    System.out.println("cycle  100000 out: press key Enter ! ");
+                    System.out.print("Size ArrayString " + getObjectSize(listStr) + " byte"); // Так массив смотрим
                     System.in.read();
                     break;
                 }
+//                if (sum == 1000000) { // вот тут уже вылет
+//                    System.out.println("cycle  1000000 out: press key Enter ! ");
+//                    System.out.print("Size ArrayString " + getObjectSize(listStr) + " byte"); // Так массив смотрим
+//                    listStr.clear();
+//                    System.in.read();
+//                    break;
+//                }
 
             }
-
             System.out.println("Out off cycle for! ");
-            System.in.read(); // котрольно смотрим после выхода все равно жрет
+
 
         } catch (IOException ex) {
-            Logger.getLogger(EducationPracticum.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FullMemoryString.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

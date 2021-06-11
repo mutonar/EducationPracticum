@@ -9,7 +9,8 @@ package Jtables;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-
+import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class SelectRowToJTable extends JFrame {
@@ -76,7 +78,7 @@ public class SelectRowToJTable extends JFrame {
           JPanel mainPanel = new JPanel();
           mainPanel.setLayout(new BorderLayout());
           
-          final JTable table = new JTable(data, columnNames);          
+          final JTable table = new JTable(new DefaultTableModel(data, columnNames));          
           JScrollPane scrollPane = new JScrollPane(table);
           mainPanel.add(scrollPane, BorderLayout.CENTER);
           
@@ -91,6 +93,21 @@ public class SelectRowToJTable extends JFrame {
           bottomPanel.add(currentSelectionLabel);
           
           mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+          
+          // прикручиваю кнопку 
+          JButton addStr = new JButton("добавить строку");
+          mainPanel.add(addStr, BorderLayout.SOUTH);
+          addStr.addActionListener(new java.awt.event.ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                  int row = table.getSelectedRow() + 1;
+                  System.out.println(row);
+                  DefaultTableModel tm = (DefaultTableModel) table.getModel();
+                  tm.insertRow(row,  new String[]{"666", "08.11.2006 18:23", "Folder", ""});
+              }
+
+        });
+        
           
 //          ListSelectionModel selModel = table.getSelectionModel();
 //          
@@ -117,12 +134,13 @@ public class SelectRowToJTable extends JFrame {
 
           
           frame.getContentPane().add(mainPanel);
-          
           frame.setPreferredSize(new Dimension(550, 200));
           frame.pack();
           frame.setLocationRelativeTo(null);
           frame.setVisible(true);
      }
+     
+     
 
      public static void main(String[] args) {
           javax.swing.SwingUtilities.invokeLater(new Runnable() {
