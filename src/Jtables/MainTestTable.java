@@ -5,11 +5,7 @@
  */
 package Jtables;
 
-import DataBaseTools.DataBase;
-import Table.ConnectBaseTable;
-import Table.NZDefaultTableModel;
-import XMLTools.XMLSAX;
-import globalData.globVar;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,8 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import XMLTools.XMLSAX;
-import globalData.globVar;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,14 +29,19 @@ public class MainTestTable extends JFrame {
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        XMLSAX.getConnectBaseConfig("Config.xml");
-        DataBase db = new DataBase();
-        globVar.DB = db;
+
         
         String table_name = "SignalSetups";
-        db.getListColumns(table_name);
-        NZDefaultTableModel madelTable = new NZDefaultTableModel(db.getData(table_name), db.getListColumns(table_name), table_name);
-        DefaultTableModel modelBase = new ConnectBaseTable(madelTable);
+        DataToTableTest1 dataTable[][] = new DataToTableTest1[][]{{new DataToTableTest1(), new DataToTableTest1()}, {new DataToTableTest1()}}; 
+        DefaultTableModel modelBase = new DefaultTableModel(dataTable, 20)  { // просто самопальное не вставить
+            //  Returning the Class of each column will allow different
+            //  renderers to be used based on Class
+            @Override
+            public Class getColumnClass(int column)
+            {
+                return getValueAt(0, column).getClass();
+            }
+        };
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -82,4 +81,10 @@ public class MainTestTable extends JFrame {
             }
         });
     }
+}
+
+class DataToTableTest1 
+{
+    private String name = "testT1";
+
 }
