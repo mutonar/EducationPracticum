@@ -1,4 +1,0 @@
-educationpracticum.FrameIMG
-educationpracticum.JComponentIMG
-educationpracticum.ImageComponent
-educationpracticum.AnalizeImage

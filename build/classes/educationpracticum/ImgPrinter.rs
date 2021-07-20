@@ -1,2 +1,0 @@
-ImgPrinter
-ImgPrinter$1

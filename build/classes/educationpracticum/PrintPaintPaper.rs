@@ -1,2 +1,0 @@
-educationpracticum.PrintPaintPaper
-educationpracticum.MyPrintable
