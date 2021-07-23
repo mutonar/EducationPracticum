@@ -4,16 +4,11 @@
  * and open the template in the editor.
  */
 
-package AlgoritmSortFinding;
+package NosePerlin;
 
 /**
  *
  * @author nazarov
- * 
- * Алгоритмы из кники Грокаем Алгоритмы
- * 
- * и не только видимо
- * 
  */
 public class Main {
     

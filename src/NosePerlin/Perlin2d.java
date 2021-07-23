@@ -4,17 +4,18 @@
  * and open the template in the editor.
  */
 
-package AlgoritmSortFinding;
+package NosePerlin;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
  * @author nazarov
- * 
- * Алгоритмы из кники Грокаем Алгоритмы
- * 
- * и не только видимо
- * 
  */
-public class Main {
-    
+public class Perlin2d
+{
+  public float Noise(float x, float y)
+  {
+    throw new NotImplementedException();
+  }
 }
