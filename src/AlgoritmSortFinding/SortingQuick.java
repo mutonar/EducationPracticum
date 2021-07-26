@@ -6,6 +6,7 @@
 package AlgoritmSortFinding;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.stream.Stream;
 
 /**
@@ -22,7 +23,10 @@ public class SortingQuick {
         int a = 50;
         int b = 136;
         
-        int[] toSort = new int[]{10, 220, 3, 1, 7};
+        int[] toSort = new int[rnd(5, 10)];
+        for (int i = 0; i < toSort.length; i++) {
+            toSort[i] = rnd(-10, 100);
+        }
         for(int element: sortQuick(toSort)){
             System.out.print(element);
         }
@@ -114,13 +118,15 @@ public class SortingQuick {
                 if(tmpElement != null){ // проверка на сортировку
                     if(element <  tmpElement){
                         checkSort = false;
+                        break;
                     }
+                    tmpElement = element;
                 }else{
                     tmpElement = element;
                 }
             }
             System.out.println();
-            if(checkSort) return arr; // нечего сортировать
+            if(checkSort) return currentSortMass; // нечего сортировать
             
             return  sortQuick(currentSortMass);// реккурсивно
         }
@@ -147,5 +153,15 @@ public class SortingQuick {
             ++idTmpArr;
         }
         return arrTmp;
+    }
+     
+     static public  int rnd(int  min,int max)
+    {
+        Random rand = new Random();
+        int diff = max - min;
+        Random random = new Random();
+        int rnd = random.nextInt(diff + 1);
+        rnd += min;
+        return rnd;
     }
 }
