@@ -1,4 +1,4 @@
-package educationpracticum;
+package educationpracticumAdditionally;
 
 /**
  *

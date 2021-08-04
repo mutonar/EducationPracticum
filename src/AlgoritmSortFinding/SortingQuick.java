@@ -27,7 +27,8 @@ public class SortingQuick {
         for (int i = 0; i < toSort.length; i++) {
             toSort[i] = rnd(-10, 100);
         }
-        for(int element: sortQuick(toSort)){
+        
+        for(int element: sortQuick(new int[]{3, 2, 5, -5})){
             System.out.print(element);
         }
     }
@@ -90,25 +91,36 @@ public class SortingQuick {
         }else{
             boolean checkSort = true;
             
+            int supportElement = 0;
             int pivot = arr[0]; // опорный элемент берем 0
             int[] less = new int[0];
             int[] greater = new int[0];
             
-            for (int i = 1; i < arr.length; i++) { 
-                int currentElement = arr[i];
-                if (currentElement <= pivot) {
-                   less = addElementToMass(less, currentElement);
+//            for (int i = 1; i < arr.length; i++) { 
+//                int currentElement = arr[i];
+//                if (currentElement <= pivot) {
+//                   less = addElementToMass(less, currentElement);
+//                }
+//            }
+//            for (int i = 1; i < arr.length; i++) {
+//                int currentElement = arr[i];
+//                if (currentElement > pivot) {
+//                   greater = addElementToMass(greater, currentElement);
+//                }            
+//            }
+
+             for (int i = 0; i < arr.length; i++) {
+                if (supportElement == i) {
+                    continue; // логично пропуск самого элемента
                 }
-            }
-            for (int i = 1; i < arr.length; i++) {
                 int currentElement = arr[i];
                 if (currentElement > pivot) {
-                   greater = addElementToMass(greater, currentElement);
-                }            
+                    greater = addElementToMass(greater, currentElement);
+                }
+                if (currentElement <= pivot) {
+                    less = addElementToMass(less, currentElement);
+                }
             }
-            
-            
-            
             // соединяем массивы
             less = addElementToMass(less, pivot);
             int[] currentSortMass = contecateMass(less, greater);

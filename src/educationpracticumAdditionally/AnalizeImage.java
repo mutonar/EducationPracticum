@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package educationpracticum;
+package educationpracticumAdditionally;
 
 import java.awt.Color;
 import java.awt.EventQueue;
