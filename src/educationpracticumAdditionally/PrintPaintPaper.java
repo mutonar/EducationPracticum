@@ -102,11 +102,11 @@ public class PrintPaintPaper {
                 if (x > w / 2) break;
                 // сокращаем в два раза
                 int c = image.getRGB(x, y);
-                int red = (c & 0x00ff0000) >> 16;
-                int green = (c & 0x0000ff00) >> 8;
+                int red = 0x00ff0000;
+                int green = 0x0000ff00;
                 int blue = c & 0x000000ff;
                 Color color = null;
-                    //Color color = new Color(red, green, blue); // оригинальный цвет
+                //Color color = new Color(red, green, blue); // оригинальный цвет
                 //Color color = new Color(green, red, blue);
                 //Color color = new Color(blue, green, red);
                 color = new Color(red, blue, green);

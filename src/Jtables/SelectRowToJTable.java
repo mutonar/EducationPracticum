@@ -16,11 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+/*
+    Выжеление строик в таблице
+*/
 
 public class SelectRowToJTable extends JFrame {
 
@@ -94,7 +93,6 @@ public class SelectRowToJTable extends JFrame {
           
           mainPanel.add(bottomPanel, BorderLayout.SOUTH);
           
-          // прикручиваю кнопку 
           JButton addStr = new JButton("добавить строку");
           mainPanel.add(addStr, BorderLayout.SOUTH);
           addStr.addActionListener(new java.awt.event.ActionListener() {

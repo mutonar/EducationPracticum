@@ -22,8 +22,6 @@ import javax.swing.JFrame;
 import java.util.*;
 
 
-import org.bytedeco.javacv.*;
-import org.bytedeco.opencv.opencv_core.IplImage;
 
 /**
  *

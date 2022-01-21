@@ -6,7 +6,7 @@
 package educationpracticumAdditionally;
 
 import org.bytedeco.javacv.*;
-import org.bytedeco.opencv.opencv_core.IplImage;
+import org.bytedeco.opencv.opencv_core.IplImage; // библиотека компьютерного зрения с открытым исходным кодом)
 
 import java.io.File;
 import java.util.logging.Level;
@@ -18,10 +18,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  *
- * @author nazarov
- * не хера не работает(но где то тут работает все же)
+ * @author nazarov захват изображения с камера или файла видео
  */
-
 // ===== Захват изображения с камеры или видео файла =====
 public class CaptureWebCam {
 
@@ -34,7 +32,7 @@ public class CaptureWebCam {
 
     public void Start() {
 
-        try {            
+        try {
             FrameGrabber grabber = new OpenCVFrameGrabber(0); // 1 for next camera (Так на ноуте работает)
             //FrameGrabber grabber = new FFmpegFrameGrabber("SampleVideo_1280x720_10mb.mp4"); // 1 for next camera
             OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
@@ -43,27 +41,24 @@ public class CaptureWebCam {
             int i = 0;
 
             grabber.start();
-            
+
             Frame frame = grabber.grab();
-            
+
             while ((frame = grabber.grab()) != null) {
                 System.out.println("frame grabbed at " + grabber.getTimestamp());
                 img = converter.convert(grabber.grab());
-                if(img != null){
+                if (img != null) {
                     System.out.println("IMG not null ");
                     break;
                 }
             }
-                
-                
-                
                 //the grabbed frame will be flipped, re-flip to make it right
-                //cvFlip(img, img, 1);// l-r = 90_degrees_steps_anti_clockwise
-                
-                //save
-                cvSaveImage("-aa.jpg", img);
-                canvas.showImage(converter.convert(img));
-            
+            //cvFlip(img, img, 1);// l-r = 90_degrees_steps_anti_clockwise
+
+            //save
+            cvSaveImage("-aa.jpg", img);
+            canvas.showImage(converter.convert(img));
+
         } catch (FrameGrabber.Exception ex) {
             Logger.getLogger(CaptureWebCam.class.getName()).log(Level.SEVERE, null, ex);
         }
