@@ -78,14 +78,42 @@ public class PrintPaintPaper {
 //                System.out.println(e);
 //            }
 //        }
-        BufferedImage img = ImageIO.read(new File("myimage1.png"));
-        analizeImg(img);
+//        BufferedImage img = ImageIO.read(new File("myimage1.png"));
+//        analizeImg(img);
+        imageResazer("Tmp1.png", "Tmp1.png", 2, 2, true);
 //        printImg(img);//вызов тестового метода с изображение
-//          BufferedImage img = ImageIO.read(new File("myimage.png"));
-//          ImageIO.write(scaleIMG(img), "png", new File("myimage_2.png")); // Да файл читает
-        // writeIMG();
+//        BufferedImage img = ImageIO.read(new File("myimage.png"));
+//        ImageIO.write(scaleIMG(img), "png", new File("myimage_2.png")); // Да файл читает
+//        writeIMG();
     }
 
+    
+    private static void imageResazer(String C_imagePath, String N_imagePath, int N_WIDTH, int N_HEIGHT, boolean increase){
+        // изменение размера изображения встроенными функциями
+        //Image image = new ImageIcon(C_imagePath).getImage(); // Какой то странный формат
+        Image image = null;
+        try {
+            image = ImageIO.read(new File(C_imagePath));
+        } catch (IOException e) {
+        }
+        int afterResizeWIDTH, afterResizeHEIGHT;
+        if(increase){
+            afterResizeWIDTH = image.getWidth(null) * N_WIDTH;
+            afterResizeHEIGHT = image.getHeight(null) * N_HEIGHT;
+        }else{
+            afterResizeWIDTH = image.getWidth(null) / N_WIDTH;
+            afterResizeHEIGHT = image.getHeight(null) / N_HEIGHT;
+        }
+        image = image.getScaledInstance(afterResizeWIDTH, afterResizeHEIGHT, Image.SCALE_SMOOTH);
+        BufferedImage bi = new BufferedImage(afterResizeWIDTH, afterResizeHEIGHT, BufferedImage.TYPE_INT_ARGB);
+        bi.getGraphics().drawImage(image, 0, 0, afterResizeWIDTH, afterResizeHEIGHT, null);
+        try {
+            ImageIO.write(bi, "png", new File(N_imagePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("imageScanner is done.");
+    }
     
     // --- анализ изображения(мешаю цвета и размер) ---
     private static void analizeImg(BufferedImage image) {
@@ -102,9 +130,11 @@ public class PrintPaintPaper {
                 if (x > w / 2) break;
                 // сокращаем в два раза
                 int c = image.getRGB(x, y);
-                int red = 0x00ff0000;
-                int green = 0x0000ff00;
+                int red = (c & 0x00ff0000) >> 16;
+                int green = (c & 0x0000ff00) >> 8;
                 int blue = c & 0x000000ff;
+                int hz = c & 0xff0000 >> 24; // прозрачности
+                
                 Color color = null;
                 //Color color = new Color(red, green, blue); // оригинальный цвет
                 //Color color = new Color(green, red, blue);
@@ -132,7 +162,6 @@ public class PrintPaintPaper {
         } catch (IOException ex) {
             Logger.getLogger(PrintPaintPaper.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     //  ---  Тестовый принт (не дает выбрать принтер)---
