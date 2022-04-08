@@ -1,4 +1,4 @@
-package educationpracticumAdditionally;
+package PrintingPrinter;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,6 +24,8 @@ import javax.print.attribute.standard.PrintQuality;
 import javax.print.attribute.standard.PrinterResolution;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+/*хз от куда взял печатает херню.*/
 
 public class ImgPrinter implements Printable {
 
@@ -327,7 +329,7 @@ public class ImgPrinter implements Printable {
                     ex.printStackTrace();
                 }
 
-                new ImgPrinter().printPage("myimage_1.png",
+                new ImgPrinter().printPage("myimage_5.png",
                         "4r");
             }
         });

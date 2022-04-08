@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package educationpracticumAdditionally;
+package PrintingPrinter;
 
 /**
  *
@@ -78,10 +78,10 @@ public class PrintPaintPaper {
 //                System.out.println(e);
 //            }
 //        }
-//        BufferedImage img = ImageIO.read(new File("myimage1.png"));
+        BufferedImage img = ImageIO.read(new File("myimage1.png"));
 //        analizeImg(img);
-        imageResazer("Tmp1.png", "Tmp1.png", 2, 2, true);
-//        printImg(img);//вызов тестового метода с изображение
+//        imageResazer("Tmp1.png", "Tmp1.png", 2, 2, true);
+        printImg(img);//вызов тестового метода с изображение
 //        BufferedImage img = ImageIO.read(new File("myimage.png"));
 //        ImageIO.write(scaleIMG(img), "png", new File("myimage_2.png")); // Да файл читает
 //        writeIMG();
